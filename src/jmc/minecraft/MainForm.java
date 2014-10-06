@@ -51,6 +51,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.Insets;
+import java.awt.Color;
 
 /**
  * 
@@ -110,11 +111,15 @@ public class MainForm extends javax.swing.JFrame {
 		panelNews = new javax.swing.JPanel();
 		jScrollPane2 = new javax.swing.JScrollPane();
 		EditorPaneNews = new javax.swing.JEditorPane();
+		EditorPaneNews.setForeground(Color.WHITE);
+		EditorPaneNews.setBackground(Color.DARK_GRAY);
 		panelControls = new TexturedPanel();
 		panelControls.setBorder(null);
 		LabelUsername = new javax.swing.JLabel();
 		labelPassword = new javax.swing.JLabel();
 		textFieldUsername = new javax.swing.JTextField();
+		textFieldUsername.setBackground(Color.WHITE);
+		textFieldUsername.setForeground(Color.DARK_GRAY);
 		PasswordField = new javax.swing.JPasswordField();
 		CheckBoxSave = new javax.swing.JCheckBox();
 		ButtonLogin = new javax.swing.JButton();
@@ -238,6 +243,8 @@ public class MainForm extends javax.swing.JFrame {
 		LabelStatusText
 				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 		TextPaneClientInfo = new javax.swing.JTextPane();
+		TextPaneClientInfo.setForeground(Color.WHITE);
+		TextPaneClientInfo.setBackground(Color.DARK_GRAY);
 		TextPaneClientInfo.setMargin(new Insets(6, 6, 6, 6));
 		TextPaneClientInfo.setBorder(null);
 		
@@ -332,6 +339,8 @@ public class MainForm extends javax.swing.JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panelLog.add(scrollPane);
+		textPaneLog.setBackground(Color.DARK_GRAY);
+		textPaneLog.setForeground(Color.WHITE);
 		
 		
 		textPaneLog.setEditable(false);
