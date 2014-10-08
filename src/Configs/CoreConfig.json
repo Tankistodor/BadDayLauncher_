@@ -5,9 +5,9 @@
         "WindowTitle":"BadDay Minecraft launcher (Leprosorium Server) v.1.04",
         "HostUrl":"http://badday.samara-wave.ru",
         "NewsUrl":"http://badday.samara-wave.ru/MineCraft/news.php",
-        "clientnames":["TFC 1.6.4","Horror 1.6.4 test"],
-        "clientdirnames":["tfc","badday164"],
-        "AuthUrl":"http://badday.samara-wave.ru/MineCraft/auth.php",
+        "clientnames":["TFC 1.6.4","Horror 1.6.4 test","TFC 1.7.10"],
+        "clientdirnames":["tfc","badday164","tfc10"],
+        "AuthUrl":"http://badday.samara-wave.ru/MineCraft/auth17x.php",
         "RegUrl":"http://badday.samara-wave.ru",
         "ClientDownloadRootFolder":"http://badday.samara-wave.ru/client/"
 }

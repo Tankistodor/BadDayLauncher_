@@ -17,6 +17,9 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -357,10 +360,11 @@ public class Utils {
 		}
 	}
 
-	public static boolean login(String userName, String password) {
+	public static boolean login(String userName, String password, String token) {
 		try {
 			String parameters = "user=" + URLEncoder.encode(userName, "UTF-8")
 					+ "&password=" + URLEncoder.encode(password, "UTF-8")
+					+ "&clientToken=" + URLEncoder.encode(token, "UTF-8")
 					+ "&version="
 					+ URLEncoder.encode(GlobalVar.Version, "UTF-8");
 			String result = Utils.excutePost(GlobalVar.AuthURL, parameters);
@@ -390,6 +394,7 @@ public class Utils {
 			GlobalVar.latestVersion = values[0].trim();
 			GlobalVar.downloadTicket = values[1].trim();
 			GlobalVar.sessionId = values[3].trim();
+			GlobalVar.uuid = values[4].trim();
 
 			return true;
 		} catch (Exception e) {
@@ -397,7 +402,7 @@ public class Utils {
 			return false;
 		}
 	}
-
+		
 	public static void ForseUpdate() {
 		String FullPath = getWorkingDirectory() + File.separator
 				+ GlobalVar.itemsServers[GlobalVar.CurrentServer];
@@ -447,4 +452,22 @@ public class Utils {
 		MainForm.LogClear();
 	}
 	
+	/*public static String inttostr(String text)
+	{
+		String res = "";
+		for(int i = 0; i < text.split("-").length; i++) res += (char)Integer.parseInt(text.split("-")[i]);
+		return res;
+	}
+	
+	public static String xorencode(String text, String key)
+	{
+		String res = ""; int j = 0;
+		for (int i = 0; i < text.length(); i++)
+		{
+			res += (char)(text.charAt(i) ^ key.charAt(j));
+			j++; if(j==key.length()) j = 0;
+		}
+		return res;
+	}*/
+    
 }

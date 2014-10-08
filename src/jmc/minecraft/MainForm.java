@@ -399,8 +399,8 @@ public class MainForm extends javax.swing.JFrame {
 	public void FormStageTwo() {
 		if (GlobalVar.isOnline)// is Online?
 		{
-			if (Utils.login(GlobalVar.userName, GlobalVar.password))// Login
-																	// succes ?
+			if (Utils.login(GlobalVar.userName, GlobalVar.password,"123123")) //TODO: Сделать рандомный токен
+																	
 			{
 				// TODO: this
 				PanelMain.removeAll();

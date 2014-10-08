@@ -69,5 +69,6 @@ public class GlobalVar {
     public static String JavaVMArg ;
     //
     public static boolean debug = false;
+	public static String uuid;
     
 }
