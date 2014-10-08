@@ -318,8 +318,9 @@ public class MCGameRuner {
 			
 			params.add("--uuid");
 			if (Online) {
-				params.add(UUID.randomUUID().toString());
+				//params.add(UUID.randomUUID().toString());
 				//params.add(GlobalVar.uuid);
+				params.add(GlobalVar.uuid);
 			} else {
 				params.add("0000");
 			}

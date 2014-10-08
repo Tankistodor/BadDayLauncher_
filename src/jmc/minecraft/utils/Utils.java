@@ -360,7 +360,8 @@ public class Utils {
 		}
 	}
 
-	public static boolean login(String userName, String password, String token) {
+	public static boolean login(String userName, String password) {
+		String token = UUID.randomUUID().toString();
 		try {
 			String parameters = "user=" + URLEncoder.encode(userName, "UTF-8")
 					+ "&password=" + URLEncoder.encode(password, "UTF-8")
@@ -390,9 +391,10 @@ public class Utils {
 			}
 			String[] values = result.split(":");
 
-			GlobalVar.userName = values[2].trim();
+			
 			GlobalVar.latestVersion = values[0].trim();
 			GlobalVar.downloadTicket = values[1].trim();
+			GlobalVar.userName = values[2].trim();
 			GlobalVar.sessionId = values[3].trim();
 			GlobalVar.uuid = values[4].trim();
 
