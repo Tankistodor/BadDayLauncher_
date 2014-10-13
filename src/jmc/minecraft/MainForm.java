@@ -50,8 +50,19 @@ import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Insets;
 import java.awt.Color;
+
+import javax.swing.JCheckBox;
+
+import java.awt.Font;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -60,7 +71,6 @@ import java.awt.Color;
 public class MainForm extends javax.swing.JFrame {
 	// private javax.swing.JButton ButtonBugLink;
 	private static javax.swing.JButton ButtonLogin;
-	private javax.swing.JButton ButtonSetting;
 	private javax.swing.JCheckBox CheckBoxSave;
 	public javax.swing.JComboBox ComboBoxSelectClient;
 	private static javax.swing.JEditorPane EditorPaneNews;
@@ -78,6 +88,7 @@ public class MainForm extends javax.swing.JFrame {
 	public javax.swing.JTextField textFieldUsername;
 	private JPanel panelLog;
 	public static JTextPane textPaneLog = new JTextPane();
+	public static JCheckBox CheckBoxShaders;
 
 	// End of variables declaration//GEN-END:variables
 	
@@ -123,9 +134,6 @@ public class MainForm extends javax.swing.JFrame {
 		PasswordField = new javax.swing.JPasswordField();
 		CheckBoxSave = new javax.swing.JCheckBox();
 		ButtonLogin = new javax.swing.JButton();
-		ButtonSetting = new javax.swing.JButton();
-		ButtonSetting.setVisible(false);
-		ButtonSetting.setEnabled(false);
 		LabelStatus = new javax.swing.JLabel();
 		ComboBoxSelectClient = new javax.swing.JComboBox();
 		// LabelRegistration = new javax.swing.JLabel();
@@ -210,13 +218,6 @@ public class MainForm extends javax.swing.JFrame {
 			}
 		});
 
-		ButtonSetting.setText("Настройки");
-		ButtonSetting.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				ButtonSettingMouseClicked(evt);
-			}
-		});
-
 		LabelStatus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 		LabelStatus.setForeground(new java.awt.Color(255, 0, 0));
 		LabelStatus.setText("Статус:");
@@ -251,16 +252,32 @@ public class MainForm extends javax.swing.JFrame {
 				TextPaneClientInfo.setEditable(false);
 				TextPaneClientInfo.setContentType("text/html"); // NOI18N
 				TextPaneClientInfo.setText("<html>" + GlobalVar.clientinfo + "</html>");
+		
+		CheckBoxShaders = new JCheckBox("Включить шейдеры");
+		CheckBoxShaders.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Boolean res = Utils.setShaderEnable(GlobalVar.itemsServers[GlobalVar.CurrentServer],CheckBoxShaders.isSelected());
+				if (!res) {
+					Log("Can`t enable shaders");
+					CheckBoxShaders.setSelected(false);
+				}
+			}
+		});
+		CheckBoxShaders.setOpaque(false);
+		CheckBoxShaders.setFont(new Font("Tahoma", Font.BOLD, 11));
+		CheckBoxShaders.setForeground(Color.WHITE);
 
+		CheckBoxShaders.setSelected(Utils.getShadersEnable(GlobalVar.itemsServers[GlobalVar.CurrentServer]));
+		
 		javax.swing.GroupLayout panelControlsLayout = new javax.swing.GroupLayout(
 				panelControls);
-		panelControlsLayout.setHonorsVisibility(false);
 		panelControlsLayout.setHorizontalGroup(
-			panelControlsLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, panelControlsLayout.createSequentialGroup()
+			panelControlsLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(panelControlsLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(panelControlsLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(ButtonSetting, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+						.addComponent(CheckBoxShaders)
 						.addComponent(TextPaneClientInfo, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
 						.addGroup(panelControlsLayout.createSequentialGroup()
 							.addGroup(panelControlsLayout.createParallelGroup(Alignment.LEADING)
@@ -296,8 +313,8 @@ public class MainForm extends javax.swing.JFrame {
 					.addGroup(panelControlsLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(ButtonLogin)
 						.addComponent(CheckBoxSave))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ButtonSetting)
+					.addGap(10)
+					.addComponent(CheckBoxShaders)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(panelControlsLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(LabelStatus, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -308,6 +325,7 @@ public class MainForm extends javax.swing.JFrame {
 					.addComponent(TextPaneClientInfo, GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
 					.addContainerGap())
 		);
+		panelControlsLayout.setHonorsVisibility(false);
 		panelControls.setLayout(panelControlsLayout);
 		
 		panelLog = new JPanel();
@@ -364,6 +382,7 @@ public class MainForm extends javax.swing.JFrame {
 		GlobalVar.CurrentServer = ComboBoxSelectClient.getSelectedIndex();
 		ConfigLoaderCore cfs = new ConfigLoaderCore();
 		cfs.LoadClientConfig(GlobalVar.itemsServers[GlobalVar.CurrentServer]);
+		CheckBoxShaders.setSelected(Utils.getShadersEnable(GlobalVar.itemsServers[GlobalVar.CurrentServer]));
 		if (GlobalVar.clientinfo != "" | GlobalVar.clientinfo != null)
 			TextPaneClientInfo.setText(GlobalVar.clientinfo); // Set new client
 																// info
@@ -372,14 +391,6 @@ public class MainForm extends javax.swing.JFrame {
 					.setText("<html><body><font color=\"#808080\"><br><br><br><br><br><br><br><center>Описание отсутствует<br></center></font></body></html>");
 		
 	}// GEN-LAST:event_ComboBoxSelectClientItemStateChanged
-
-	private void ButtonSettingMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_ButtonSettingMouseClicked
-		// TODO add check created
-		ConfigLoaderCore cfg = new ConfigLoaderCore();
-		cfg.loadCurrentClientConfig();
-		new Options().setVisible(true);
-
-	}// GEN-LAST:event_ButtonSettingMouseClicked
 
 	private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ButtonLoginActionPerformed
 		// RunGame.Init();
@@ -534,10 +545,13 @@ public class MainForm extends javax.swing.JFrame {
 																				// about
 																				// client
 
+		
+		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 
 				new MainForm().setVisible(true);
+				
 				Log("Проверка совместимости");
 				Log("Запуск под OS: "+System.getProperty("os.name")+" ("+Utils.getPlatform().toString()+")");
 				Log("Память всего:"+Utils.getOSTotalMemory()+" свободно:"+Utils.getOSFreeMemory());
@@ -551,15 +565,17 @@ public class MainForm extends javax.swing.JFrame {
 		        int revision = s.length > 2 ? Integer.parseInt(s[2]) : 0;
 		        int build = s.length > 3 ? Integer.parseInt(s[3]) : 0;
 		        
-		        /*if ((major == 1) && (minor == 7) && System.getProperty("sun.arch.data.model").equals("64")) { } else {
-		        	Log("Версия java должна быть 1.7 64bit");
-		        	ButtonLogin.setEnabled(false);
-		        }*/
+		        ButtonLogin.setEnabled(true);
 		        
-		        /*if ((major == 1) && (minor == 7)) { } else {
-		        	Log("Версия java должна быть 1.7");
-	        		ButtonLogin.setEnabled(false);
-	        	}*/
+		        if (GlobalVar.JavaVer17 && !((major == 1) && (minor == 7)) ) {
+		        	Log("Версия java должна быть 1.7. Переустановите Java на версию 1.7");
+		        	ButtonLogin.setEnabled(false);
+		        }
+		        
+		        if (GlobalVar.Java64 && System.getProperty("sun.arch.data.model").equals("32")) {
+		        	Log("Версия java 32bit. Если у Вас 32 битная система, то вы не сможете играть в эту сборку.");
+		        	ButtonLogin.setEnabled(false);
+		        }
 		        
 		        if (!System.getProperty("sun.arch.data.model").equals("64")) {
 		        	Log("Установленная у Вас версия java 32bit. Рекомендуем установить 64 битную версию для увеличения объема оперативной памяти для приложения.");

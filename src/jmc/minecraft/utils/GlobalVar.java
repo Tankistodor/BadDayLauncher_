@@ -46,6 +46,9 @@ public class GlobalVar {
     public static String clientinfo;
     //public static boolean oldminecarft; //Старый метод запуска игры
     public static String fmlVersion; //Запускать как версию фмл модификацию
+    public static String clinetShaderModName;
+    public static boolean Java64;
+    public static boolean JavaVer17;
     
     public static String[] addons;
     public static String[] addonsinfo;

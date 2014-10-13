@@ -133,6 +133,9 @@ public void LoadClientConfig(String clientName)
                     JSONArray ZipListTemp = (JSONArray) jsonObject.get("DownloadZipList");
                     GlobalVar.ArchivesList = new String[ZipListTemp.size()];  //Init array size
                 ZipListTemp.toArray(GlobalVar.ArchivesList);  //Puts strings array
+                GlobalVar.clinetShaderModName = (String) jsonObject.get("ShaderModName");
+                GlobalVar.Java64 = (boolean) jsonObject.get("Java64");
+                GlobalVar.JavaVer17 = (boolean) jsonObject.get("JavaVer17");
 
 	} catch (IOException e) {
 		System.out.println("IO error on load client info config =" + e);

@@ -472,4 +472,48 @@ public class Utils {
 		return res;
 	}*/
     
+	
+	public static boolean getShadersEnable(String clientName) {
+		
+		String ClientFolderPath = Utils.getWorkingDirectory()
+				+ File.separator + GlobalVar.itemsServers[GlobalVar.CurrentServer]
+				+ File.separator + ".minecraft" + File.separator;
+		
+		File f = new File(ClientFolderPath + "mods" + File.separator + GlobalVar.clinetShaderModName);
+		if(f.exists() && !f.isDirectory()) { return true; }
+		
+		f = new File(ClientFolderPath + "mods" + File.separator + GlobalVar.clinetShaderModName + ".disable");
+		if(f.exists() && !f.isDirectory()) { return false; }
+		
+		
+		return false;
+	}
+
+	public static boolean setShaderEnable(String clientName, boolean selected) {
+		String ClientFolderPath = Utils.getWorkingDirectory()
+				+ File.separator + GlobalVar.itemsServers[GlobalVar.CurrentServer]
+				+ File.separator + ".minecraft" + File.separator;
+		
+		
+		if (selected) {
+
+			File f = new File(ClientFolderPath + "mods" + File.separator + GlobalVar.clinetShaderModName);
+			if(f.exists() && !f.isDirectory()) { return true; }
+			
+			File fdis = new File(ClientFolderPath + "mods" + File.separator + GlobalVar.clinetShaderModName + ".disable");
+			if(fdis.exists() && !fdis.isDirectory()) { fdis.renameTo(f); return true; }
+			return false;
+		} else {
+
+			File fdis = new File(ClientFolderPath + "mods" + File.separator + GlobalVar.clinetShaderModName + ".disable");
+			//if(fdis.exists() && !fdis.isDirectory()) { fdis.renameTo(f); return; }
+			
+			File f = new File(ClientFolderPath + "mods" + File.separator + GlobalVar.clinetShaderModName);
+			if(f.exists() && !f.isDirectory()) { f.renameTo(fdis); return true; }
+			return false;
+		}
+		
+		//return false;
+		
+	}
 }
