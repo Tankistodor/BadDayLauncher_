@@ -136,6 +136,7 @@ public void LoadClientConfig(String clientName)
                 GlobalVar.clinetShaderModName = (String) jsonObject.get("ShaderModName");
                 GlobalVar.Java64 = (boolean) jsonObject.get("Java64");
                 GlobalVar.JavaVer17 = (boolean) jsonObject.get("JavaVer17");
+                GlobalVar.lightLoader = (boolean)  jsonObject.get("LightLoader");
 
 	} catch (IOException e) {
 		System.out.println("IO error on load client info config =" + e);

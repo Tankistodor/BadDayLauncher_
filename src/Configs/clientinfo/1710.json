@@ -1,0 +1,9 @@
+{
+    "info": "<html><body text=\"#FFFFFF\" bgcolor=\"#404040\" ><center><p><font size=\"5\">TFC Tested version 1.7.10</font><br/><small><font color=\"#CC0000\">Версия 1.7.10 Space</font></small></p><p style=\"margin: 10px\";>Тестовый</p></center></body></html>",
+    "RunMinecraftAsFML": "1.7.10",
+    "DownloadZipList":["bin.zip","assets.zip","mods.zip","other.zip"],
+    "ShaderModName":"ShadersModCore-v2.3.28-mc1.7.10-f.jar",
+    "Java64":true,
+    "JavaVer17":false,
+    "LightLoader":true
+}

@@ -196,12 +196,10 @@ public class MCGameRuner {
 		} else if (GlobalVar.fmlVersion.equals("1.7.10")) {
 			
 			params.add("-cp");
-			params.add(
-					ClientFolderPath + "bin" + File.separator + "forge-1.7.10-10.13.1.1222.jar"+Utils.getJavaDelimiter()+
+			String libs = ClientFolderPath + "bin" + File.separator + "forge-1.7.10.jar"+Utils.getJavaDelimiter()+
 					ClientFolderPath + "bin" + File.separator + "launchwrapper-1.11.jar"+Utils.getJavaDelimiter()+
 					
 					ClientFolderPath + "bin" + File.separator + "1.7.10.jar"+Utils.getJavaDelimiter()+
-					
 					
 					ClientFolderPath + "bin" + File.separator + "akka-actor_2.11-2.3.3.jar"+Utils.getJavaDelimiter()+
 					ClientFolderPath + "bin" + File.separator + "asm-all-5.0.3.jar"+Utils.getJavaDelimiter()+
@@ -244,13 +242,25 @@ public class MCGameRuner {
 					ClientFolderPath + "bin" + File.separator + "scala-xml_2.11-1.0.2.jar"+Utils.getJavaDelimiter()+
 					ClientFolderPath + "bin" + File.separator + "soundsystem-20120107.jar"+Utils.getJavaDelimiter()+
 					ClientFolderPath + "bin" + File.separator + "trove4j-3.0.3.jar"+Utils.getJavaDelimiter()+
-					ClientFolderPath + "bin" + File.separator + "vecmath-1.3.1.jar"
+					ClientFolderPath + "bin" + File.separator + "vecmath-1.3.1.jar";
+			if (GlobalVar.lightLoader)
+				libs = ClientFolderPath + "bin" + File.separator + "liteloader-1.7.10.jar"+Utils.getJavaDelimiter() + libs;
+			params.add(
+					libs
 					);
 					
 			//--username ${auth_player_name} --version ${version_name} --gameDir ${game_directory} --assetsDir ${assets_root} --assetIndex ${assets_index_name} --uuid ${auth_uuid} --accessToken ${auth_access_token} --userProperties ${user_properties} --userType ${user_type}",
 			params.add("net.minecraft.launchwrapper.Launch");
+			
+			if (GlobalVar.lightLoader) {
+				params.add("--tweakClass");
+				params.add("com.mumfrey.liteloader.launch.LiteLoaderTweaker");
+			}
+			
 			params.add("--tweakClass");
 			params.add("cpw.mods.fml.common.launcher.FMLTweaker");
+			
+			
 			
 			params.add("--username");
 			params.add(GlobalVar.userName);
